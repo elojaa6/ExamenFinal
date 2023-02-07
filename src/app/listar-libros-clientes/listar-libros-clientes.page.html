@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar class="ios hydrated">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Libros Disponibles</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="filterList($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card *ngFor="let resultado of resultados">
+    {{resultado.foto}} 
+    <ion-card-header>
+      <ion-card-title > Nombre: {{resultado.nombre}} </ion-card-title>
+    </ion-card-header>
+    
+    <ion-item>
+      Autor: {{resultado.autor}} <br>
+      Categoria: {{resultado.categoria}} <br>
+      Stock: {{resultado.stock}} <br>
+      ISBN: {{resultado.isbn}}
+    </ion-item>
+    <app-button label="Reserva" (click)="reservaLibro(resultado.nombre)"></app-button>
+  </ion-card>
+</ion-content>

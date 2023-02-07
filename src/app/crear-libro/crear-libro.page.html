@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar class="ios hydrated">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Libro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1>Registrar Libro</h1>
+
+  <div class="form">
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Nombre</label>
+      <input [(ngModel)]="datos.nombre" placeholder="Nombre" name="nombre" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="nombre" required>
+    </div>
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Autor</label>
+      <input [(ngModel)]="datos.autor" placeholder="Autor" name="autor" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="autor" required>
+    </div>
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Categoria</label>
+      <input [(ngModel)]="datos.categoria" placeholder="Categoria" name="categoria" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="categoria" required>>
+    </div>
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Stock</label>
+      <input [(ngModel)]="datos.stock" placeholder="Stock" name="stock" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="stock" required>
+    </div>
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">ISBN</label>
+      <input [(ngModel)]="datos.isbn" placeholder="ISBN" name="isbn" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="isbn" required>
+    </div>
+    <ion-item>
+      <ion-label class="normal">
+        Portada Libro:
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button>
+          <label for="file-upload">
+            <ion-icon slot="icon-only" name="images"></ion-icon>
+          </label>
+          <input (change)="newImageUpload($event)" id="file-upload" style="display: none" type="file" accept="image/*">
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item>
+      <img class="image" [src]="datos.foto">
+    </ion-item>
+
+    <app-button label="Registrar" (click)="saveLibro()"></app-button>
+  </div>
+
+</ion-content>

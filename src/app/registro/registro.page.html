@@ -1,0 +1,36 @@
+<ion-content class="ion-padding">
+  <h1>Crear cuenta</h1>
+  <h3>Regístrate para empezar!</h3>
+
+  <div class="form">
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Nombre </label>
+      <input [(ngModel)]="datos.nombre" placeholder="Nombre" name="nombre" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="nombre" required>
+    </div>
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Apellido </label>
+      <input [(ngModel)]="datos.apellido" placeholder="Apellido" name="apellido" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="apellido" required>
+    </div>
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Email </label>
+      <input [(ngModel)]="datos.email" placeholder="Email" name="email" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="email" required>
+    </div>
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Teléfono </label>
+      <input [(ngModel)]="datos.telefono" placeholder="Teléfono" name="telefono" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="telefono" required>
+    </div>
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Direccion </label>
+      <input [(ngModel)]="datos.direccion" placeholder="Direccion" name="direccion" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="direccion" required>
+    </div>
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Contraseña </label>
+      <input [(ngModel)]="datos.password" placeholder="Contraseña" name="contraseña" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="contraseña" required>
+    </div>
+
+    <app-button label="Registrar" (click)="registrar()"></app-button>
+  </div>
+
+  
+  <p class="footer-text">Ya soy miembro, <a routerLink="/login">Iniciar sesión</a></p>
+</ion-content>

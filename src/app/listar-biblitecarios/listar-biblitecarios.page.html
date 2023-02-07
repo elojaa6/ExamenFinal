@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Listado Bibliotecarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-card *ngFor="let biblio of bibliotecarios" class="user-list">
+    <ion-card-header>
+      <ion-card-title>Nombre: {{biblio.nombre}} {{biblio.apellido}}</ion-card-title>
+    </ion-card-header>
+    <ion-item>
+      Dirreccion: {{biblio.direccion}} <br>
+      Email: {{biblio.email}} <br>
+      Telefono: {{biblio.telefono}}
+    </ion-item>
+
+    <app-button label="Ver Libros"[routerLink]="['/listar-libros-clientes', biblio.id]"></app-button>
+
+  </ion-card>
+
+</ion-content>

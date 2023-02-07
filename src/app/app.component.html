@@ -1,0 +1,47 @@
+<ion-app>
+  <ion-menu menuId="main-menu" contentId="main">
+    <ion-content class="ion-padding">
+      <div class="menu-header-bg"></div>
+      <div class="header-content">
+        <img src="https://cdn-icons-png.flaticon.com/128/6996/6996778.png" alt="">
+        <ion-label>
+        </ion-label>
+
+      </div>
+
+      <ion-list class="menu-items" lines="none">
+        <ion-menu-toggle>
+          <ion-item routerLink="perfil">
+            <ion-icon name="person-sharp" routerLink="perfil"></ion-icon>
+            <p>&nbsp; Mi perfil</p>
+          </ion-item>
+          <ion-item  *ngIf="rol === false" routerLink="listar-citas">
+            <ion-icon name="library"  routerLink="listar-citas"></ion-icon>
+            <p>&nbsp; Libros Disponibles</p>
+          </ion-item>
+          <ion-item  routerLink="listar-no-activos" *ngIf="rol === false">
+            <ion-icon name="library-outline"  routerLink="listar-no-activos"></ion-icon>
+            <p>&nbsp; Libros No-Disponibles</p>
+          </ion-item>
+          <ion-item routerLink="crear-libro" *ngIf="rol === false">
+            <ion-icon name="add-sharp" routerLink="crear-libro"></ion-icon>
+            <p>&nbsp; Registrar Libro</p>
+          </ion-item>
+          <ion-item routerLink="listar-biblitecarios" *ngIf="rol === true">
+            <ion-icon name="people" routerLink="listar-biblitecarios"></ion-icon>
+            <p>&nbsp; Bibliotecarios</p>
+          </ion-item>
+          <ion-item routerLink="reservar" *ngIf="rol === true">
+            <ion-icon name="people" routerLink="reservar"></ion-icon>
+            <p>&nbsp; Reservas</p>
+          </ion-item>
+          <ion-item routerLink="" (click)="logout()">
+            <ion-icon name="log-out-outline" (click)="logout()"></ion-icon>
+            <p>&nbsp; Cerrar Sesión</p>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

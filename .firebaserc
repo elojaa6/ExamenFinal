@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "citas-medicas-ups-test": {
+      "hosting": {
+        "app": [
+          "citas-medicas-ups-test"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "citas-medicas-ups-test"
+  }
+}

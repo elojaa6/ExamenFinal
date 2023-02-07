@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar class="ios hydrated">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="info">
+    <ion-item>
+      <ion-label>Nombre</ion-label>
+      <ion-label>{{info.nombre}}</ion-label>
+      <ion-icon (click)="editAttrib('nombre')" slot="end" name="create"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>Apellido</ion-label>
+      <ion-label>{{info.apellido}}</ion-label>
+      <ion-icon (click)="editAttrib('apellido')" slot="end" name="create"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>Email:</ion-label>
+      <ion-label>{{info.email}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Teléfono:</ion-label>
+      <ion-label>{{info.telefono}}</ion-label>
+      <ion-icon (click)="editAttrib('telefono')" slot="end" name="create"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dirección:</ion-label>
+      <ion-label>{{info.direccion}}</ion-label>
+      <ion-icon (click)="editAttrib('direccion')" slot="end" name="create"></ion-icon>
+    </ion-item>
+  </ion-card>
+</ion-content>

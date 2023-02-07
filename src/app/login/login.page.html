@@ -1,0 +1,23 @@
+<ion-content class="ion-padding">
+  <h1>Bienvenido</h1>
+  <h3>Iniciar sesión para continuar!</h3>
+
+  <div class="form">
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''">Correo: </label>
+      <input placeholder="Correo" [(ngModel)]="credenciales.correo" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="email" required>
+    </div>
+    <div class="form-field">
+      <label [ngClass]="focused ? 'label-focused' : ''">Contraseña: </label>
+      <input placeholder="Contraseña" [(ngModel)]="credenciales.password" type="password" (focus)="focused = true" (blur)="onBlur($event)" id="password" required>
+    </div>
+
+    <app-button (click)="login()" label="Login"></app-button>
+
+    <app-button (click)="google()" label="Google"></app-button>
+
+  </div>
+
+  <p class="footer-text">Soy nuevo usuario, <a routerLink="/registro">Registrarse</a></p>
+
+</ion-content>

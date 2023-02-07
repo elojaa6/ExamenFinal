@@ -1,0 +1,7 @@
+{
+  "name": "Veterinaria_UPS",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
