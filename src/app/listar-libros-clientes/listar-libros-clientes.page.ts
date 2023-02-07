@@ -36,18 +36,6 @@ export class ListarLibrosClientesPage implements OnInit {
   }
 
    async getLibros() {
-    /*this.libro.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => 
-          ({ id: c.payload.doc.id, ...c.payload.doc.data()})
-        )
-      )
-    ).subscribe(data => {
-      this.resultados = data.filter(function(item){
-        return item.estado === "Activo"
-      });
-      console.log(this.resultados);
-    })*/
     this.user = this.activeRoute.snapshot.paramMap.get('id')
     console.log(this.user)
     const path = 'Bibliotecario/' + this.user + '/Libros'
@@ -121,26 +109,29 @@ export class ListarLibrosClientesPage implements OnInit {
     idCliente: null
   }
 
-  getId(){
+  getId(idLibro){
+    
+
   }
 
   reservaLibro(idLibro){
-    
     console.log(idLibro)
     this.user = this.activeRoute.snapshot.paramMap.get('id')
     console.log(this.user)
     const path = 'Bibliotecario/' + this.user + '/Libros'
     console.log(path);
-
-    this.libro.getByIdLibro(idLibro, path).subscribe(res => {
+    this.libro.getByIdLibro(idLibro, path).subscribe(function(res){
       console.log(res)
       this.datosLibro = res
       
-    console.log('2')
+      console.log('2')
       console.log(this.datosLibro)
     })
 
+    console.log('ingresa')
+
     this.cliente = JSON.parse(localStorage.getItem('user'))
+    console.log(this.cliente.uid)
 
     console.log(this.datosLibro)
 
@@ -154,13 +145,16 @@ export class ListarLibrosClientesPage implements OnInit {
     this.datos.idBibliotecario = this.user
     this.datos.idCliente = this.cliente.uid
 
+    console.log(this.datos)
+    console.log(this.datosLibro.stock)
     this.datosLibro.stock = parseInt(this.datosLibro.stock) - 1
+    console.log(this.datosLibro.stock)
     this.cero = this.datosLibro.stock
 
     
     console.log(this.cero)
 
-    if (this.datosLibro.stock == this.cero) {
+    if (this.datosLibro.stock == 0) {
       console.log('cambio')
       this.datosLibro.estado == "No-Activo";
       this.libro.updateStock(idLibro,this.datosLibro,path)
