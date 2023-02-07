@@ -21,6 +21,9 @@ export class ListarLibrosClientesPage implements OnInit {
 
   lista: any
 
+  cero: any
+  uno: 1
+
   constructor(
     private libro: LibroService,
     private reserva: ReservaService,
@@ -49,11 +52,17 @@ export class ListarLibrosClientesPage implements OnInit {
     console.log(this.user)
     const path = 'Bibliotecario/' + this.user + '/Libros'
     console.log(path);
-    this.libro.getCollectionLibros<Libro>(path).subscribe(res => {
-      console.log(res)
-      this.resultados = res.filter(function(item){
-        return item.estado === "Activo" 
-      })
+    this.libro.getCollectionLibros(path).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => 
+          ({ id: c.payload.doc.id, ...c.payload.doc.data()})
+        )
+      )
+    ).subscribe(data => {
+      this.resultados = data.filter(function(item){
+        return item.estado === "Activo"
+      });
+      console.log(this.resultados);
     })
   }
 
@@ -68,7 +77,13 @@ export class ListarLibrosClientesPage implements OnInit {
 
     this.user = this.activeRoute.snapshot.paramMap.get('id')
     const path = 'Bibliotecario/' + this.user + '/Libros'
-    this.libro.getCollectionLibros<Libro>(path).subscribe(res => {
+    this.libro.getCollectionLibros(path).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => 
+          ({ id: c.payload.doc.id, ...c.payload.doc.data()})
+        )
+      )
+    ).subscribe(res => {
       console.log(res)
       this.resultados = res.filter(function(item){
         if (item.nombre && searchTerm && item.estado === "Activo") {
@@ -80,6 +95,7 @@ export class ListarLibrosClientesPage implements OnInit {
     })
 
   }
+  newFile = ''
 
   datos : Reserva = {
     nombre: null,
@@ -93,31 +109,67 @@ export class ListarLibrosClientesPage implements OnInit {
     idCliente: null
   }
 
-  reservaLibro(name){
+  datosLibro: Libro = {
+    nombre: null,
+    autor: null,
+    categoria: null,
+    stock: null,
+    estado: null,
+    isbn: null,
+    foto: null,
+    idBibliotecario: null,
+    idCliente: null
+  }
 
+  getId(){
+  }
+
+  reservaLibro(idLibro){
+    
+    console.log(idLibro)
     this.user = this.activeRoute.snapshot.paramMap.get('id')
-    this.cliente = JSON.parse(localStorage.getItem('user'))
+    console.log(this.user)
+    const path = 'Bibliotecario/' + this.user + '/Libros'
+    console.log(path);
 
-    this.filtro = this.resultados
-    this.filtro = this.filtro.filter(function(item){
-      return item.nombre == name
+    this.libro.getByIdLibro(idLibro, path).subscribe(res => {
+      console.log(res)
+      this.datosLibro = res
+      
+    console.log('2')
+      console.log(this.datosLibro)
     })
 
-    console.log(this.filtro)
+    this.cliente = JSON.parse(localStorage.getItem('user'))
 
-    this.datos.nombre = this.filtro.nombre
-    this.datos.autor = this.filtro.autor
-    this.datos.categoria = this.filtro.categoria
-    this.datos.stock = this.filtro.stock
-    this.datos.estado = this.filtro.estado
-    this.datos.isbn = this.filtro.isbn
-    this.datos.foto = this.filtro.foto
+    console.log(this.datosLibro)
+
+    this.datos.nombre = this.datosLibro.nombre
+    this.datos.autor = this.datosLibro.autor
+    this.datos.categoria = this.datosLibro.categoria
+    this.datos.stock = this.datosLibro.stock
+    this.datos.estado = this.datosLibro.estado
+    this.datos.isbn = this.datosLibro.isbn
+    this.datos.foto = this.datosLibro.foto
     this.datos.idBibliotecario = this.user
     this.datos.idCliente = this.cliente.uid
 
+    this.datosLibro.stock = parseInt(this.datosLibro.stock) - 1
+    this.cero = this.datosLibro.stock
+
+    
+    console.log(this.cero)
+
+    if (this.datosLibro.stock == this.cero) {
+      console.log('cambio')
+      this.datosLibro.estado == "No-Activo";
+      this.libro.updateStock(idLibro,this.datosLibro,path)
+    }
+
+    console.log('1')
     console.log(this.datos)
     this.reserva.create(this.datos)
-    this.router.navigate(['/reservar'])
+    //this.router.navigate(['/reservar'])
     return true
   }
 

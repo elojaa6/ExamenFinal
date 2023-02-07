@@ -11,7 +11,7 @@
 </ion-header>
 <ion-content>
   <ion-card *ngFor="let resultado of resultados">
-    {{resultado.foto}} 
+    <img id="imagen" [src]="resultado.foto" alt=""/>
     <ion-card-header>
       <ion-card-title > Nombre: {{resultado.nombre}} </ion-card-title>
     </ion-card-header>
@@ -22,6 +22,6 @@
       Stock: {{resultado.stock}} <br>
       ISBN: {{resultado.isbn}}
     </ion-item>
-    <app-button label="Reserva" (click)="reservaLibro(resultado.nombre)"></app-button>
+    <app-button label="Reserva" (click)="reservaLibro(resultado.id)"></app-button>
   </ion-card>
 </ion-content>

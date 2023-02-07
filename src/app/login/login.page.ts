@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
 
   google(){
     this.auth.GoogleAuth();
-    this.router.navigate(['/home'])
+    this.router.navigate(['/listar-biblitecarios'])
   }
 
 }

@@ -3,9 +3,11 @@
     <ion-content class="ion-padding">
       <div class="menu-header-bg"></div>
       <div class="header-content">
-        <img src="https://cdn-icons-png.flaticon.com/128/6996/6996778.png" alt="">
-        <ion-label>
-        </ion-label>
+        <img [src]="photo" alt="">
+        <ion-item>
+          {{displayName}} <br>
+          {{email}}
+        </ion-item>
 
       </div>
 

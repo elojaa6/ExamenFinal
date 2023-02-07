@@ -27,6 +27,10 @@ export class AppComponent {
 
   gogle: any
 
+  photo:any
+  displayName: any
+  email: any
+
 
   constructor(
     private auth: AuthService,
@@ -40,6 +44,9 @@ export class AppComponent {
         console.log('Esta Logeado');
         this.login = true
         this.gogle = JSON.parse(localStorage.getItem('user'))
+        this.photo = this.gogle.photoURL
+        this.displayName = this.gogle.displayName
+        this.email = this.gogle.email
         this.rol = this.gogle.emailVerified
         console.log(this.rol)
       }else{

@@ -12,6 +12,7 @@ export class LibroService {
   user = JSON.parse(localStorage.getItem('user'));
   private dbPath = '/Bibliotecario/' + this.user.uid + '/Libros';
   librosRef: AngularFirestoreCollection<Libro>;
+  collections: AngularFirestoreCollection<Libro>;
 
   constructor(
     private db: AngularFirestore,
@@ -24,13 +25,18 @@ export class LibroService {
     return this.librosRef;
   }
 
-  getCollectionLibros<tipo>(path: string) {
-    const collection = this.db.collection<tipo>(path);
-    return collection.valueChanges();
+  getCollectionLibros(path: string): AngularFirestoreCollection<Libro> {
+    this.collections = this.db.collection(path);
+    return this.collections;
   }
 
   getById(id: string): Observable<any> {
     return this.librosRef.doc(id).valueChanges();
+  }
+
+  getByIdLibro(id: string, path: string): Observable<any>{
+    this.collections = this.db.collection(path)
+    return this.collections.doc(id).valueChanges();
   }
 
   create(libro: Libro): any {
@@ -39,6 +45,11 @@ export class LibroService {
 
   update(id: string, libro: Libro): Promise<void> {
     return this.librosRef.doc(id).update(libro);
+  }
+
+  updateStock(id: string, libro: Libro, path: string): Promise<void> {
+    this.collections = this.db.collection(path)
+    return this.collections.doc(id).update(libro)
   }
 
   delete(id: string): Promise<void> {

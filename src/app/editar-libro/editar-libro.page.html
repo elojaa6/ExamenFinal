@@ -9,28 +9,45 @@
 <ion-content>
   <h1>Editar Libro</h1>
   <div class="form">
-    <form [formGroup]="citaForm" (ngSubmit)="updateCita()">
+    <form>
       <div class="form-field">
         <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Nombre</label>
-        <input placeholder="Nombre" name="nombre" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="nombre" required>
+        <input [(ngModel)]="libro.nombre" placeholder="Nombre" name="nombre" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="nombre" required>
       </div>
       <div class="form-field">
         <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Autor</label>
-        <input placeholder="Autor" name="autor" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="autor" required>
+        <input [(ngModel)]="libro.autor" placeholder="Autor" name="autor" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="autor" required>
       </div>
       <div class="form-field">
         <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Categoria</label>
-        <input placeholder="Categoria" name="categoria" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="categoria" required>>
+        <input [(ngModel)]="libro.categoria" placeholder="Categoria" name="categoria" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="categoria" required>>
       </div>
       <div class="form-field">
         <label [ngClass]="focused ? 'label-focused' : ''" position="floating">Stock</label>
-        <input placeholder="Stock" name="stock" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="stock" required>
+        <input [(ngModel)]="libro.stock" placeholder="Stock" name="stock" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="stock" required>
       </div>
       <div class="form-field">
         <label [ngClass]="focused ? 'label-focused' : ''" position="floating">ISBN</label>
-        <input placeholder="ISBN" name="isbn" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="isbn" required>
+        <input [(ngModel)]="libro.isbn" placeholder="ISBN" name="isbn" type="text" (focus)="focused = true" (blur)="onBlur($event)" id="isbn" required>
       </div>
-      <app-button label="Actualizar"></app-button>
+
+      <ion-item>
+        <ion-label class="normal">
+          Portada Libro:
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button>
+            <label for="file-upload">
+              <ion-icon slot="icon-only" name="images"></ion-icon>
+            </label>
+            <input (change)="newImageUpload($event)" id="file-upload" style="display: none" type="file" accept="image/*">
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+      <ion-item>
+        <img class="image" [src]="libro.foto">
+      </ion-item>
+      <app-button (click)="updateCita()" label="Actualizar"></app-button>
       
     </form>
     <app-button routerLink="/listar-citas" label="Cancelar"></app-button>

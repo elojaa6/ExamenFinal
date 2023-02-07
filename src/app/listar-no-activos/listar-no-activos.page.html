@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let resultado of resultado">
-    {{resultado.foto}} 
+  <ion-card *ngFor="let resultado of resultados">
+    <img id="imagen" [src]="resultado.foto" alt=""/>
     <ion-card-header>
       <ion-card-title > Nombre: {{resultado.nombre}} </ion-card-title>
     </ion-card-header>

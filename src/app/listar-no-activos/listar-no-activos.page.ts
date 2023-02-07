@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
 import { Libro } from '../entidades/Libro';
 import { LibroService } from '../servicios/libro.service';
 
@@ -10,7 +11,7 @@ import { LibroService } from '../servicios/libro.service';
 export class ListarNoActivosPage implements OnInit {
 
   user: any
-  resultado: Libro[] = []
+  resultados: any
 
   constructor(
     private libro: LibroService
@@ -21,14 +22,17 @@ export class ListarNoActivosPage implements OnInit {
   }
 
   getLibros() {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    const path = 'Bibliotecario/' + this.user.uid + '/Libros'
-    console.log(path);
-    this.libro.getCollectionLibros<Libro>(path).subscribe(res => {
-      console.log(res)
-      this.resultado = res.filter(function(item){
+    this.libro.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => 
+          ({ id: c.payload.doc.id, ...c.payload.doc.data()})
+        )
+      )
+    ).subscribe(data => {
+      this.resultados = data.filter(function(item){
         return item.estado === "No-Activo"
-      })
+      });
+      console.log(this.resultados);
     })
   }
 
